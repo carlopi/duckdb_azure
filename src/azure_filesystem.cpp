@@ -213,10 +213,10 @@ AzureReadOptions AzureStorageFileSystem::ParseAzureReadOptions(optional_ptr<File
 
 	return options;
 }
-
+/*
 time_t AzureStorageFileSystem::ToTimeT(const Azure::DateTime &dt) {
 	auto time_point = static_cast<std::chrono::system_clock::time_point>(dt);
 	return std::chrono::system_clock::to_time_t(time_point);
 }
-
+*/
 } // namespace duckdb

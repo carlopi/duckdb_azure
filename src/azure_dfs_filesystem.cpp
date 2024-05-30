@@ -163,7 +163,7 @@ void AzureDfsStorageFileSystem::LoadRemoteFileInfo(AzureFileHandle &handle) {
 
 	auto res = hfh.file_client.GetProperties();
 	hfh.length = res.Value.FileSize;
-	hfh.last_modified = ToTimeT(res.Value.LastModified);
+	//hfh.last_modified = ToTimeT(res.Value.LastModified);
 }
 
 void AzureDfsStorageFileSystem::ReadRange(AzureFileHandle &handle, idx_t file_offset, char *buffer_out,

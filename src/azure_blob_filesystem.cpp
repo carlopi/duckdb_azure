@@ -165,7 +165,7 @@ void AzureBlobStorageFileSystem::LoadRemoteFileInfo(AzureFileHandle &handle) {
 
 	auto res = hfh.blob_client.GetProperties();
 	hfh.length = res.Value.BlobSize;
-	hfh.last_modified = ToTimeT(res.Value.LastModified);
+	//hfh.last_modified = ToTimeT(res.Value.LastModified);
 }
 
 bool AzureBlobStorageFileSystem::FileExists(const string &filename, optional_ptr<FileOpener> opener) {

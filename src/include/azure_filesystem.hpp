@@ -111,7 +111,7 @@ protected:
 
 	virtual void LoadRemoteFileInfo(AzureFileHandle &handle) = 0;
 	static AzureReadOptions ParseAzureReadOptions(optional_ptr<FileOpener> opener);
-	static time_t ToTimeT(const Azure::DateTime &dt);
+	//static time_t ToTimeT(const Azure::DateTime &dt);
 };
 
 } // namespace duckdb

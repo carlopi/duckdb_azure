@@ -213,36 +213,6 @@ CreateCurlTransport(const std::string &proxy, const std::string &proxy_username,
 		curl_transport_options.ProxyPassword = proxy_password;
 	}
 
-	const char *ca_info = std::getenv("CURL_CA_INFO");
-#if !defined(_WIN32) && !defined(__APPLE__)
-	if (!ca_info) {
-		// https://github.com/Azure/azure-sdk-for-cpp/issues/4983
-		// https://github.com/Azure/azure-sdk-for-cpp/issues/4738
-		for (const auto *path : {
-		         "/etc/ssl/certs/ca-certificates.crt",                // Debian/Ubuntu/Gentoo etc.
-		         "/etc/pki/tls/certs/ca-bundle.crt",                  // Fedora/RHEL 6
-		         "/etc/ssl/ca-bundle.pem",                            // OpenSUSE
-		         "/etc/pki/tls/cacert.pem",                           // OpenELEC
-		         "/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem", // CentOS/RHEL 7
-		         "/etc/ssl/cert.pem"                                  // Alpine Linux
-		     }) {
-			if (FILE *f = fopen(path, "r")) {
-				fclose(f);
-				ca_info = path;
-				break;
-			}
-		}
-	}
-#endif
-	if (ca_info) {
-		curl_transport_options.CAInfo = ca_info;
-	}
-
-	const char *ca_path = std::getenv("CURL_CA_PATH");
-	if (ca_path) {
-		curl_transport_options.CAPath = ca_path;
-	}
-
 	return std::make_shared<Azure::Core::Http::CurlTransport>(curl_transport_options);
 }
 

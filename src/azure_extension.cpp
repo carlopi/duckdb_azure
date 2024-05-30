@@ -1,17 +1,18 @@
 #define DUCKDB_EXTENSION_MAIN
 
 #include "azure_extension.hpp"
-#include "azure_blob_filesystem.hpp"
-#include "azure_dfs_filesystem.hpp"
+//#include "azure_blob_filesystem.hpp"
+#include "azure_filesystem.hpp"
+//#include "azure_dfs_filesystem.hpp"
 #include "azure_secret.hpp"
 
 namespace duckdb {
 
 static void LoadInternal(DatabaseInstance &instance) {
 	// Load filesystem
-	auto &fs = instance.GetFileSystem();
-	fs.RegisterSubSystem(make_uniq<AzureBlobStorageFileSystem>());
-	fs.RegisterSubSystem(make_uniq<AzureDfsStorageFileSystem>());
+//	auto &fs = instance.GetFileSystem();
+//	fs.RegisterSubSystem(make_uniq<AzureBlobStorageFileSystem>());
+//	fs.RegisterSubSystem(make_uniq<AzureDfsStorageFileSystem>());
 
 	// Load Secret functions
 	CreateAzureSecretFunctions::Register(instance);
@@ -65,8 +66,8 @@ static void LoadInternal(DatabaseInstance &instance) {
 	                          "azure_read_transfer_chunk_size.",
 	                          LogicalType::UBIGINT, Value::UBIGINT(default_read_options.buffer_size));
 
-	auto *http_proxy = std::getenv("HTTP_PROXY");
-	Value default_http_value = http_proxy ? Value(http_proxy) : Value(nullptr);
+//	auto *http_proxy = std::getenv("HTTP_PROXY");
+	Value default_http_value = Value(nullptr);
 	config.AddExtensionOption("azure_http_proxy",
 	                          "Proxy to use when login & performing request to azure. "
 	                          "By default it will use the HTTP_PROXY environment variable if set.",
